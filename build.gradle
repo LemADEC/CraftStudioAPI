@@ -15,7 +15,7 @@ buildscript {
     }
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
-        classpath "org.jfrog.buildinfo:build-info-extractor-gradle:4.0.0"
+        classpath "org.jfrog.buildinfo:build-info-extractor-gradle:4.6.2"
     }
 }
 
@@ -45,9 +45,9 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 minecraft {
-    version = "1.12-14.21.1.2387"
+    version = "1.12.2-14.23.1.2603"
     runDir = "run"
-    mappings = "snapshot_20170624"
+    mappings = "snapshot_20180123"
     replace "@VERSION@",  project.version
 }
 
