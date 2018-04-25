@@ -45,9 +45,9 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 minecraft {
-    version = "1.12-14.21.1.2387"
+    version = "1.12.2-14.23.3.2655"
     runDir = "run"
-    mappings = "snapshot_20170624"
+    mappings = "snapshot_20180425"
     replace "@VERSION@",  project.version
 }
 
@@ -93,6 +93,13 @@ processResources {
         expand 'version':project.version, 'mcversion':project.minecraft.version
     }
     from(sourceSets.main.resources.srcDirs) {
+        exclude 'mcmod.info'
+    }
+    from(sourceSets.mod.resources.srcDirs) {
+        include 'mcmod.info'
+        expand 'version':project.version, 'mcversion':project.minecraft.version
+    }
+    from(sourceSets.mod.resources.srcDirs) {
         exclude 'mcmod.info'
     }
 }
