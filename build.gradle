@@ -95,13 +95,6 @@ processResources {
     from(sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info'
     }
-    from(sourceSets.mod.resources.srcDirs) {
-        include 'mcmod.info'
-        expand 'version':project.version, 'mcversion':project.minecraft.version
-    }
-    from(sourceSets.mod.resources.srcDirs) {
-        exclude 'mcmod.info'
-    }
 }
 
 jar {    
