@@ -15,7 +15,7 @@ buildscript {
     }
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
-        classpath "org.jfrog.buildinfo:build-info-extractor-gradle:4.0.0"
+        classpath "org.jfrog.buildinfo:build-info-extractor-gradle:4.6.2"
     }
 }
 
