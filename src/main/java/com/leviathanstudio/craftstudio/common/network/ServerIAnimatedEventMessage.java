@@ -57,8 +57,8 @@ public class ServerIAnimatedEventMessage extends IAnimatedEventMessage
                 return null;
 
             message.animated.getAnimationHandler();
-            boolean succes = AnimationHandler.onServerIAnimatedEvent(message);
-            if (succes && message.event != EnumIAnimatedEvent.ANSWER_START_ANIM.getId())
+            boolean success = AnimationHandler.onServerIAnimatedEvent(message);
+            if (success && message.event != EnumIAnimatedEvent.ANSWER_START_ANIM.getId())
                 return new ClientIAnimatedEventMessage(message);
             return null;
         }
