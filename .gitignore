@@ -169,6 +169,8 @@ fabric.properties
 
 ### Intellij Patch ###
 *.iml
+.idea
+classes
 
 ### Other ###
 run
