@@ -1,7 +1,5 @@
 package com.leviathanstudio.craftstudio.common.network;
 
-import java.util.UUID;
-
 import com.leviathanstudio.craftstudio.common.animation.AnimationHandler;
 import com.leviathanstudio.craftstudio.common.animation.IAnimated;
 
@@ -66,12 +64,8 @@ public class ServerIAnimatedEventMessage extends IAnimatedEventMessage
         }
 
         @Override
-        public Entity getEntityByUUID(MessageContext ctx, long most, long least) {
-            UUID uuid = new UUID(most, least);
-            for (Entity e : ctx.getServerHandler().player.world.loadedEntityList)
-                if (e.getPersistentID().equals(uuid))
-                    return e;
-            return null;
+        public Entity getEntityById(MessageContext ctx, int entityId) {
+            return ctx.getServerHandler().player.world.getEntityByID(entityId);
         }
 
         @Override

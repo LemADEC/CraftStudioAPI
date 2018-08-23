@@ -1,7 +1,5 @@
 package com.leviathanstudio.craftstudio.common.network;
 
-import java.util.UUID;
-
 import com.leviathanstudio.craftstudio.CraftStudioApi;
 import com.leviathanstudio.craftstudio.common.animation.IAnimated;
 
@@ -33,8 +31,8 @@ public class IAnimatedEventMessage implements IMessage
     public float     keyframeInfo = -1;
     /** The object that is animated */
     public IAnimated animated;
-    /** Variable that transmit part of the UUID of an Entity. */
-    public long      most, least;
+    /** Variable that transmit part of the id of an Entity. */
+    public int       entityId;
     /** Variable that transmit the position of a TileEntity. */
     public int       x, y, z;
     /** True, if on message receiving the animated object is an entity. */
@@ -78,8 +76,7 @@ public class IAnimatedEventMessage implements IMessage
             return;
         }
         else if (actualEvent < EnumIAnimatedEvent.ID_COUNT) {
-            this.most = buf.readLong();
-            this.least = buf.readLong();
+            this.entityId = buf.readInt();
             this.event = actualEvent;
             this.hasEntity = true;
         }
@@ -107,9 +104,7 @@ public class IAnimatedEventMessage implements IMessage
         if (this.animated instanceof Entity) {
             Entity e = (Entity) this.animated;
             buf.writeShort(this.event);
-            UUID uuid = e.getUniqueID();
-            buf.writeLong(uuid.getMostSignificantBits());
-            buf.writeLong(uuid.getLeastSignificantBits());
+            buf.writeInt(e.getEntityId());
         }
         else if (this.animated instanceof TileEntity) {
             TileEntity te = (TileEntity) this.animated;
@@ -154,7 +149,7 @@ public class IAnimatedEventMessage implements IMessage
          */
         public boolean onMessage(IAnimatedEventMessage message, MessageContext ctx) {
             if (message.hasEntity) {
-                Entity e = this.getEntityByUUID(ctx, message.most, message.least);
+                Entity e = this.getEntityById(ctx, message.entityId);
                 if (!(e instanceof IAnimated)) {
                     CraftStudioApi.getLogger().debug("Networking error : invalid entity.");
                     return false;
@@ -173,17 +168,15 @@ public class IAnimatedEventMessage implements IMessage
         }
 
         /**
-         * Get an entity by its UUID.
+         * Get an entity by its id.
          * 
          * @param ctx
          *            The context of the message received.
-         * @param most
-         *            The most significants bits of the UUID.
-         * @param least
-         *            The least significants bits of the UUID.
+         * @param entityId
+         *            The id of the entity.
          * @return The Entity, null if it couldn't be found.
          */
-        public abstract Entity getEntityByUUID(MessageContext ctx, long most, long least);
+        public abstract Entity getEntityById(MessageContext ctx, int entityId);
 
         /**
          * Get a TileEntity by its position.
